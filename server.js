@@ -9,6 +9,7 @@ import morgan from 'morgan'
 import mongoose from 'mongoose';
 import jobsRouter from './routes/jobsRouter.js';
 import authRoute from './routes/authRoute.js';
+import userRoute from './routes/userRoute.js';
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 import {authenticateUser} from './middleware/authMiddleware.js';
 
@@ -18,8 +19,9 @@ app.use(morgan('dev'))
 }
 
 app.use(cookieParser())
-app.use('/api/v1/jobs',authenticateUser, jobsRouter)
-app.use('/api/v1/auth', authRoute)
+app.use('/api/v1/jobs',authenticateUser, jobsRouter);
+app.use('/api/v1/user',authenticateUser, userRoute);
+app.use('/api/v1/auth', authRoute);
 
 
 app.use("*",(req,res)=>{

@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import User from '../models/AuthModel.js'
+import User from '../models/UserModel.js'
 import bcrypt from 'bcryptjs'
 import {hashPassword, comparePassword} from '../utils/passwordUtils.js'
 import { UnauthenticatedError } from '../errors/customeErrors.js';

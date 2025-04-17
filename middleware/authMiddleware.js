@@ -1,4 +1,4 @@
-import { UnauthenticatedError } from '../errors/customeErrors.js';
+import { UnauthenticatedError, UnauthorizedError } from '../errors/customeErrors.js';
 import { verifyJWT } from '../utils/tokenUtils.js';
 
 export const authenticateUser = async (req, res, next) => {
@@ -15,3 +15,10 @@ export const authenticateUser = async (req, res, next) => {
     throw new UnauthenticatedError('authentication invalid');
   }
 };
+
+export const authorizeRole= async (req, res, next)=>{
+      if(!req.user.role==='admin'){
+         throw new UnauthorizedError("Unauthorized");
+      }
+      next();
+}
