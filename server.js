@@ -34,11 +34,7 @@ app.use("*",(req,res)=>{
     res.status(404).json({msg: "404 - not found"})
 })
 
-
-
 app.use(errorHandlerMiddleware);
-
-
 
 try {
     await mongoose.connect(process.env.MONGO_URL)

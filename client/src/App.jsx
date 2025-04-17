@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import {
   Landing, AddJob, Admin, AllJobs, DashboardLayout, DeleteJob, EditJob, Error, HomeLayout, Login, Profile, Register, Stats
 } from './pages'
+import { action as registerAction  } from './pages/Register';
 
 export const checkDefaultTheme = () => {
   const isDarkTheme =
@@ -26,7 +27,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'register',
-        element: <Register />
+        element: <Register />,
+        action: registerAction,
       },
       {
         path: 'login',
