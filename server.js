@@ -23,7 +23,7 @@ app.get('/api/v1/test', (req, res) => {
     res.json({ msg: 'test route' });
   });
 
-  
+
 app.use(cookieParser())
 app.use('/api/v1/jobs',authenticateUser, jobsRouter);
 app.use('/api/v1/user',authenticateUser, userRoute);
@@ -39,10 +39,11 @@ app.use("*",(req,res)=>{
 app.use(errorHandlerMiddleware);
 
 
+
 try {
     await mongoose.connect(process.env.MONGO_URL)
     const port=process.env.PORT || 5100;
-    app.listen(3000, ()=>{
+    app.listen(port, ()=>{
         console.log(`server running on port ${port}`)
     })
 } catch (error) {
