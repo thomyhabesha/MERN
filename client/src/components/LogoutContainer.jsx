@@ -8,7 +8,7 @@ import { useDashboardContext } from '../pages/DashboardLayout';
 function LogoutContainer() {
 const {user, logoutUser} =useDashboardContext();
 const [showlogout, setShowlogout]=useState(true);
-
+console.log("user: "+user)
 return (
 
     <Wrapper>

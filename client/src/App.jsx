@@ -5,6 +5,7 @@ import {
 } from './pages'
 import { action as registerAction  } from './pages/Register';
 import { action as LoginAction  } from './pages/Login';
+import { loader as loaderDashboard  } from './pages/DashboardLayout';
 
 export const checkDefaultTheme = () => {
   const isDarkTheme =
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       {
         path: 'dashboardLayout',
         element: <DashboardLayout isDarkThemeEnabled/>,
+        loader: loaderDashboard,
         children: [
           {
              index:true,
