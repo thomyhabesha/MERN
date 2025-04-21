@@ -4,6 +4,7 @@ import {
   Landing, AddJob, Admin, AllJobs, DashboardLayout, DeleteJob, EditJob, Error, HomeLayout, Login, Profile, Register, Stats
 } from './pages'
 import { action as registerAction  } from './pages/Register';
+import { action as LoginAction  } from './pages/Login';
 
 export const checkDefaultTheme = () => {
   const isDarkTheme =
@@ -32,7 +33,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <Login />
+        element: <Login />,
+        action: LoginAction,
       },
       {
         path: 'dashboardLayout',
