@@ -18,7 +18,7 @@ export const loader = async () => {
 
 const Dashboard = () => {
  
-  const user = useLoaderData();
+  const {user} = useLoaderData();
 
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());

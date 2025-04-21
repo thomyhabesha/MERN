@@ -6,24 +6,27 @@ import { useDashboardContext } from '../pages/DashboardLayout';
 
 
 function LogoutContainer() {
-const {user, logoutUser} =useDashboardContext();
-const [showlogout, setShowlogout]=useState(true);
-console.log("user: "+user)
-return (
+  const [showLogout, setShowLogout] = useState(false);
+  const { user, logoutUser } = useDashboardContext();
 
+  return (
     <Wrapper>
-      <button type='button'
+      <button
+        type='button'
         className='btn logout-btn'
-        
-        >
-        <FaUserCircle/>
+        onClick={() => setShowLogout(!showLogout)}
+      >
+        {user.avatar ? (
+          <img src={user.avatar} alt='avatar' className='img' />
+        ) : (
+          <FaUserCircle />
+        )}
+
         {user?.name}
-
-
-        <FaCaretDown/>
+        <FaCaretDown />
       </button>
-      <div className={showlogout?'dropdown show-dropdown':'dropdown'}>
-      <button type='button' className='dropdown-btn' onClick={logoutUser}>
+      <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
+        <button type='button' className='dropdown-btn' onClick={logoutUser}>
           logout
         </button>
       </div>

@@ -1490,7 +1490,6 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   position: relative;
-
   .logout-btn {
     display: flex;
     align-items: center;
