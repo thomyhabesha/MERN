@@ -1,5 +1,5 @@
-import { Outlet, redirect, useLoaderData } from 'react-router-dom';
-
+import { Outlet, redirect, useLoaderData, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Wrapper from '../assets/wrappers/Dashboard';
 import { Navbar, BigSidebar, SmallSidebar } from '../components';
 import {checkDefaultTheme} from '../App'
@@ -22,6 +22,13 @@ const Dashboard = () => {
 
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
+  const navigate = useNavigate();
+
+  const logoutUser = async () => {
+    navigate('/');
+    await customFetch.get('/auth/logout');
+    toast.success('Logging out...');
+  };
 
   const toggleDarkTheme = () => {
     const newDarkTheme=!isDarkTheme
@@ -34,9 +41,6 @@ const Dashboard = () => {
     setShowSidebar(!showSidebar);
   };
 
-  const logoutUser = async () => {
-    console.log('logout user');
-  };
   return (
     <DashboardContext.Provider
       value={{

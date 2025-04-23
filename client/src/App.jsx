@@ -1,11 +1,18 @@
+
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import {
-  Landing, AddJob, Admin, AllJobs, DashboardLayout, DeleteJob, EditJob, Error, HomeLayout, Login, Profile, Register, Stats
+  Landing, AddJob, Admin, AllJobs, DashboardLayout, EditJob, Error, HomeLayout, Login, Profile, Register, Stats
 } from './pages'
 import { action as registerAction  } from './pages/Register';
 import { action as LoginAction  } from './pages/Login';
 import { loader as loaderDashboard  } from './pages/DashboardLayout';
+import { action as addJobAction  } from './pages/AddJob';
+import { loader as allJobLoader  } from './pages/AllJobs';
+import { action as editJobAction  } from './pages/EditJob';
+import { loader as editJobLoader  } from './pages/EditJob';
+import { action as deleteJobAction  } from './pages/DeleteJob';
+
 
 export const checkDefaultTheme = () => {
   const isDarkTheme =
@@ -44,11 +51,13 @@ const router = createBrowserRouter([
         children: [
           {
              index:true,
-              element:<AddJob />
+              element:<AddJob />,
+              action:addJobAction
           },
           {
               path:'allJobs',
-              element:<AllJobs />
+              element:<AllJobs />,
+              loader: allJobLoader
           },
           {
               path:'profile',
@@ -57,6 +66,16 @@ const router = createBrowserRouter([
           {
               path:'stats',
               element:<Stats />
+          },
+          {
+              path:'edit-job/:id',
+              element:<EditJob />,
+              action: editJobAction,
+              loader: editJobLoader,
+          },
+          {
+              path:'delete-job/:id',
+              action: deleteJobAction,
           },
           {
               path:'admin',

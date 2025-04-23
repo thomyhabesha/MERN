@@ -5,9 +5,11 @@ const Wrapper = styled.section`
   width: 100%;
   background: var(--background-secondary-color);
   padding: 3rem 2rem 4rem;
+  box-shadow: var(--shadow-2);
   .form-title {
     margin-bottom: 2rem;
   }
+
   .form {
     margin: 0;
     border-radius: 0;
@@ -29,6 +31,7 @@ const Wrapper = styled.section`
     display: grid;
     place-items: center;
   }
+
   @media (min-width: 992px) {
     .form-center {
       grid-template-columns: 1fr 1fr;
