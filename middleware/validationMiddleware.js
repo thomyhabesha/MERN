@@ -117,3 +117,11 @@ export const validateUpdateUserInput = withValidationErrors([
   body('lastName').notEmpty().withMessage('last name is required'),
   body('location').notEmpty().withMessage('location is required'),
 ]);
+
+export const checkForTestUser = (req, res, next) => {
+  console.log("req.user.testUser: "+ req.user.testUser)
+  if (req.user.testUser) {
+    throw new BadRequestError('Demo User. Read Only!');
+  }
+  next();
+};
