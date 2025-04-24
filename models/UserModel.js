@@ -8,6 +8,7 @@ lastName:{
   type: String,
   default: 'lastName'
 },
+
 location: {
     type:String,
     default:'my city'
@@ -15,7 +16,9 @@ location: {
 role:{
     type:String,
     enum:['user', 'admin']
-}
+},
+avatar: String,
+avatarPublicId: String,
 });
 
 UserSchema.methods.toJSON= function(){

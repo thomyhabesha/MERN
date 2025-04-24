@@ -1,4 +1,5 @@
 import React from 'react'
+import { StatItem } from '../components';
 
 function Stats() {
   return (
