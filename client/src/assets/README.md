@@ -5267,6 +5267,7 @@ export const showStats = async (req, res) => {
 };
 ```
 
+
 #### Stats - Complete Server Functionality
 
 [MongoDB Docs](https://www.mongodb.com/docs/manual/core/aggregation-pipeline/)
@@ -5286,6 +5287,11 @@ export const showStats = async (req, res) => {
     acc[title] = count;
     return acc;
   }, {});
+
+
+
+
+
 
   const defaultStats = {
     pending: stats.pending || 0,
