@@ -14,6 +14,7 @@ import { loader as editJobLoader  } from './pages/EditJob';
 import { action as deleteJobAction  } from './pages/DeleteJob';
 import { loader as adminLoader  } from './pages/Admin';
 import { action as actionProfile  } from './pages/Profile';
+import { loader as loaderStats  } from './pages/Stats';
 
 
 export const checkDefaultTheme = () => {
@@ -68,7 +69,8 @@ const router = createBrowserRouter([
           },
           {
               path:'stats',
-              element:<Stats />
+              element:<Stats />,
+              loader: loaderStats
           },
           {
               path:'edit-job/:id',
