@@ -42,6 +42,10 @@ app.use('/api/v1/jobs',authenticateUser, jobsRouter);
 app.use('/api/v1/users',authenticateUser, userRoute);
 app.use('/api/v1/auth', authRoute);
 
+//point to frontend 
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, './public', 'index.html'));
+  });
 
 app.use("*",(req,res)=>{
     res.status(404).json({msg: "404 - not found"})

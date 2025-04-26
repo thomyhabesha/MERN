@@ -24,7 +24,6 @@ export const getAllJobs = async (req, res) => {
   if (jobType && jobType !== 'all') {
     queryObject.jobType = jobType;
   }
-
   const sortOptions = {
     newest: '-createdAt',
     oldest: 'createdAt',
