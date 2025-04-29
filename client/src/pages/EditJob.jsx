@@ -1,39 +1,58 @@
 import { FormRow, FormRowSelect, SubmitBtn } from '../components';
 import Wrapper from '../assets/wrappers/DashboardFormPage';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { JOB_STATUS, JOB_TYPE } from '../../../utils/constants';
 import { Form, redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import customFetch from '../utils/customFetch';
+import { useQuery } from '@tanstack/react-query';
 
-export const loader = async ({ params }) => {
-  try {
-    const { data } = await customFetch.get(`/jobs/${params.id}`);
-    return data;
-  } catch (error) {
-    toast.error(error.response.data.msg);
-    return redirect('/dashboardLayout/allJobs');
-  }
+const singleJobQuery = (id) => {
+  return {
+    queryKey: ['job', id],
+    queryFn: async () => {
+      const { data } = await customFetch.get(`/jobs/${id}`);
+      return data;
+    },
+  };
 };
 
+export const loader =
+  (queryClient) =>
+  async ({ params }) => {
+    try {
+      await queryClient.ensureQueryData(singleJobQuery(params.id));
+      return params.id;
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+      return redirect('/dashboardLayout/allJobs');
+    }
+  };
 
-export const action = async ({ request, params }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
+export const action =
+  (queryClient) =>
+  async ({ request, params }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    try {
+      await customFetch.patch(`/jobs/${params.id}`, data);
+      queryClient.invalidateQueries(['jobs']);
 
-  try {
-    await customFetch.patch(`/jobs/${params.id}`, data);
-    toast.success('Job edited successfully');
-    return redirect('/dashboardLayout/allJobs');
-  } catch (error) {
-    toast.error(error.response.data.msg);
-    return error;
-  }
-};
+      toast.success('Job edited successfully');
+      return redirect('/dashboardLayout/allJobs');
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+      return error;
+    }
+  };
 
-function EditJob() {
-   const {job}=useLoaderData();
- 
+const EditJob = () => {
+  const id = useLoaderData();
+
+  const {
+    data: { job },
+  } = useQuery(singleJobQuery(id));
+
   return (
     <Wrapper>
       <Form method='post' className='form'>
@@ -43,11 +62,10 @@ function EditJob() {
           <FormRow type='text' name='company' defaultValue={job.company} />
           <FormRow
             type='text'
-            labelText='job location'
             name='jobLocation'
+            labelText='job location'
             defaultValue={job.jobLocation}
           />
-
           <FormRowSelect
             name='jobStatus'
             labelText='job status'
@@ -60,11 +78,10 @@ function EditJob() {
             defaultValue={job.jobType}
             list={Object.values(JOB_TYPE)}
           />
-         <SubmitBtn formBtn/>
+          <SubmitBtn formBtn />
         </div>
       </Form>
     </Wrapper>
   );
 };
-
 export default EditJob;

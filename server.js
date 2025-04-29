@@ -8,6 +8,9 @@ app.use(express.json());
 import cloudinary from 'cloudinary';
 import morgan from 'morgan'
 import mongoose from 'mongoose';
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
+
 import jobsRouter from './routes/jobsRouter.js';
 import authRoute from './routes/authRoute.js';
 import userRoute from './routes/userRoute.js';
@@ -36,8 +39,11 @@ app.get('/api/v1/test', (req, res) => {
   });
   
   
-  app.use(cookieParser())
   app.use(express.static(path.resolve(__dirname, './public')));
+  app.use(cookieParser())
+  app.use(helmet());
+app.use(mongoSanitize());
+
 app.use('/api/v1/jobs',authenticateUser, jobsRouter);
 app.use('/api/v1/users',authenticateUser, userRoute);
 app.use('/api/v1/auth', authRoute);

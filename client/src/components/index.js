@@ -13,4 +13,5 @@ export {default as BarChartComponent} from './BarChart'
 export {default as ChartsContainer} from './ChartsContainer'
 export {default as StatsContainer} from './StatsContainer'
 export {default as AreaChartComponent} from './AreaChartComponent'
+export {default as Loading} from './Loading'
 
